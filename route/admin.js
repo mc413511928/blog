@@ -1,4 +1,5 @@
 const express = require('express');
+const { User } = require('../model/user');
 
 // 创建路由对象
 const admin = express.Router();
@@ -13,12 +14,29 @@ admin.get('/user', (req, res) => {
     res.render('admin/user', {});
 });
 
-admin.post('/login', (req, res) => {
+admin.post('/login', async (req, res) => {
     // res.send(req.body);
     const { email, password } = req.body;
     if (email.trim().length === 0 || password.trim().length === 0) {
-        res.status(400).render('admin/error', {
+        return res.status(400).render('admin/error', {
             msg: '邮箱或密码不能为空'
+        });
+    }
+    // 校验成功啦~~~
+    const user = await User.findOne({email});
+    if (user) {
+        // 说明邮箱存在，有此用户，判断[查询过来的密码]和[前端传递过来的密码]是否一致
+        if (user.password === password) {
+            // 校验成功
+            res.send('登录成功');
+        } else {
+            res.status(400).render('admin/error', {
+                msg: '密码错误'
+            });
+        }
+    } else {
+        res.status(400).render('admin/error', {
+            msg: '邮箱或密码错误'
         });
     }
 });
