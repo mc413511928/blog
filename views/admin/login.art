@@ -32,7 +32,7 @@ $("#loginForm").on("submit", function() {
     var obj = serializeToJSON($(this)); // { "email": "ifer@qq.com", "password": "12343" }
     
     if (obj.email.trim().length === 0 || obj.password.trim().length === 0) {
-        alert('用户名或密码不能为空');
+        alert('邮箱或密码不能为空');
         // 阻止默认的跳转行为和下面代码的执行
         return false;
     }

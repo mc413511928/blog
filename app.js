@@ -2,6 +2,7 @@ const express = require('express');
 // 创建服务器对象
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
 
 // 连接数据库
 require('./model/connect');
@@ -16,6 +17,8 @@ app.set('view engine', 'art');
 
 // 配置静态资源访问
 app.use(express.static(path.join(__dirname, 'public')));
+// 注意要写在所有路由的前面
+app.use(bodyParser.urlencoded({extended: false}));
 
 // 路由相关的操作
 app.use('/admin', require('./route/admin'));
