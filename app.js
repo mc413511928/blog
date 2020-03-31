@@ -3,6 +3,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+// 连接数据库
+require('./model/connect');
+// require('./model/user');
+
 // 用怎样的模板引擎渲染怎样的后缀的文件
 app.engine('art', require('express-art-template'));
 // 视图模板的根目录
