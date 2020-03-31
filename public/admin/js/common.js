@@ -1,8 +1,9 @@
-function arrToJSON(form) {
-    let arr = form.serializeArray();
-    let result = {};
-    arr.forEach(item => {
-        result[item.name] = item.value;
+// 格式化表单数据的
+function serializeToJSON(form) {
+    let data = form.serializeArray();
+    let obj = {};
+    data.forEach(item => {
+        obj[item.name] = item.value;
     });
-    return result;
+    return obj;
 }
