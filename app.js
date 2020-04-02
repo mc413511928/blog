@@ -19,7 +19,9 @@ app.set('view engine', 'art');
 // 配置静态资源访问
 app.use(express.static(path.join(__dirname, 'public')));
 // 注意要写在所有路由的前面
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 // 配置 session
 app.use(session({
     secret: 'ifer',
@@ -28,6 +30,16 @@ app.use(session({
         maxAge: 24 * 60 * 60 * 1000 // cookie 一天后过期
     }
 }));
+
+// 登录拦截
+app.use('/admin', (req, res, next) => {
+    // 假如访问的是 /admin/user，req.url 就是 /user
+    if (req.url !== '/login' && !req.session.userInfo) {
+        res.redirect('/admin/login');
+    } else {
+        next();
+    }
+});
 
 // 路由相关的操作
 app.use('/admin', require('./route/admin'));

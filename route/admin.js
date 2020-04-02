@@ -33,7 +33,7 @@ admin.post('/login', async (req, res) => {
         if (user.password === hash(password)) {
             // 把用户信息存到 session 
             req.session.userInfo = user;
-            // 校验成功
+            // 跳转到用户界面
             res.redirect('/admin/user');
         } else {
             res.status(400).render('admin/error', {
@@ -50,7 +50,7 @@ admin.post('/login', async (req, res) => {
 admin.get('/logout', (req, res) => {
     // 销毁 session
     req.session.destroy(function() {
-        // 清楚前端的 cookie
+        // 清除前端的 cookie
         res.clearCookie('connect.sid');
         // 跳转到登录
         res.redirect('/admin/login');
