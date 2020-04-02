@@ -21,7 +21,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 注意要写在所有路由的前面
 app.use(bodyParser.urlencoded({extended: false}));
 // 配置 session
-app.use(session({ secret: 'ifer' }));
+app.use(session({
+    secret: 'ifer',
+    saveUninitialized: false, // 清除未初始化的 sessionID
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000 // cookie 一天后过期
+    }
+}));
 
 // 路由相关的操作
 app.use('/admin', require('./route/admin'));
