@@ -13,7 +13,7 @@ admin.get('/login', (req, res) => {
 admin.get('/user', (req, res) => {
     // 渲染 admin 模板
     res.render('admin/user', {
-        username: req.session.username
+        userInfo: req.session.userInfo
     });
 });
 
@@ -33,8 +33,12 @@ admin.post('/login', async (req, res) => {
         if (user.password === hash(password)) {
             // 把用户名挂载到 session 上
             req.session.username = user.username;
+            // 有点小问题：下个用户再次登录的时候，会覆盖其他用户的信息
+            // req.app.locals.userInfo = user;
+            // 该如何解决？
+            req.session.userInfo = user;
             // 校验成功
-            res.send('登录成功');
+            res.redirect('/admin/user');
         } else {
             res.status(400).render('admin/error', {
                 msg: '密码错误'
