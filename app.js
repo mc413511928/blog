@@ -32,14 +32,7 @@ app.use(session({
 }));
 
 // 登录拦截
-app.use('/admin', (req, res, next) => {
-    // 假如访问的是 /admin/user，req.url 就是 /user
-    if (req.url !== '/login' && !req.session.userInfo) {
-        res.redirect('/admin/login');
-    } else {
-        next();
-    }
-});
+app.use('/admin', require('./middleware/loginGuard'));
 
 // 路由相关的操作
 app.use('/admin', require('./route/admin'));
