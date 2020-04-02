@@ -10,5 +10,9 @@ admin.get('/user', require('./admin/userPage'));
 admin.post('/login', require('./admin/loginFn'));
 // 退出功能
 admin.get('/logout', require('./admin/logoutFn'));
+// 新增用户的编辑页面
+admin.get('/user-edit', require('./admin/userEditPage'));
+// 新增用户的功能
+admin.post('/user-edit', require('./admin/userEditFn'))
 
 module.exports = admin;
