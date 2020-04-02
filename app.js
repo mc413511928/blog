@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 // 连接数据库
 require('./model/connect');
@@ -19,6 +20,8 @@ app.set('view engine', 'art');
 app.use(express.static(path.join(__dirname, 'public')));
 // 注意要写在所有路由的前面
 app.use(bodyParser.urlencoded({extended: false}));
+// 配置 session
+app.use(session({ secret: 'ifer' }));
 
 // 路由相关的操作
 app.use('/admin', require('./route/admin'));
