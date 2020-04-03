@@ -1,23 +1,20 @@
 const Joi = require('joi');
 const {
-    User
+    User,
+    userValidator
 } = require('../../model/user');
 const hash = require('../../utils/hash');
 
-module.exports = async (req, res) => {
-    // 定义校验规则
-    const schema = {
-        username: Joi.string().min(2).max(12).required().error(new Error('用户名不符合验证规则')),
-        email: Joi.string().email().required().error(new Error('邮箱格式不符合要求')),
-        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required().error(new Error('密码格式不符合要求')),
-        role: Joi.string().valid('normal', 'admin').required().error(new Error('角色值非法')),
-        state: Joi.number().valid(0, 1).required().error(new Error('状态值非法'))
-    };
-
+module.exports = async (req, res, next) => {
     try {
-        await Joi.validate(req.body, schema);
+        await userValidator(req.body);
     } catch (err) {
-        return res.redirect(`/admin/user-edit?message=${err.message}`);
+        // return res.redirect(`/admin/user-edit?message=${err.message}`);
+        let obj = {
+            path: '/admin/user-edit',
+            message: err.message
+        };
+        return next(JSON.stringify(obj));
     }
     // 查询邮箱在数据库是否存在
     const user = await User.findOne({
@@ -26,7 +23,12 @@ module.exports = async (req, res) => {
 
     if (user) {
         // 邮箱已经存在了不应该允许添加
-        return res.redirect(`/admin/user-edit?message=邮箱已经存在了`);
+        // return res.redirect(`/admin/user-edit?message=邮箱已经存在了`);
+        let obj = {
+            path: '/admin/user-edit',
+            message: '邮箱已经存在了'
+        };
+        return next(JSON.stringify(obj));
     }
     // 对用户的密码进行加密
     req.body.password = hash(req.body.password);

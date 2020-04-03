@@ -38,4 +38,10 @@ app.use('/admin', require('./middleware/loginGuard'));
 app.use('/admin', require('./route/admin'));
 app.use('/home', require('./route/home'));
 
+// 错误处理
+app.use((err, req, res, next) => {
+    let obj = JSON.parse(err);
+    res.redirect(`${obj.path}?message=${obj.message}`);
+});
+
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));
