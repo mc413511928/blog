@@ -11,12 +11,10 @@
         <!-- 侧边栏 -->
         <div class="main">
             <!-- 分类标题 -->
-            {{if user}}
             <div class="title">
-                <h4>{{@user._id}}</h4>
+                <h4>{{@user && user._id}}</h4>
                 <p class="tips">{{message}}</p>
             </div>
-            {{/if}}
             <!-- /分类标题 -->
             <form class="form-container" action="{{link}}" method="POST">
                 <div class="form-group">
