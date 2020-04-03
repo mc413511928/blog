@@ -15,6 +15,8 @@ module.exports = async (req, res, next) => {
         } catch(err) {
             // 直接统一渲染一个错误页面
             // return next(JSON.stringify({path: '/admin/user-edit', message: 'ID不能乱写'}))
+            // 直接跳转到列表
+            res.redirect('/admin/user');
         }
     } else {
         // 添加
