@@ -16,5 +16,7 @@ admin.get('/user-edit', require('./admin/userEditPage'));
 admin.post('/user-edit', require('./admin/userEditFn'));
 // 修改用户
 admin.post('/user-modify', require('./admin/userModifyFn'));
+// 删除用户
+admin.get('/remove', require('./admin/userRemoveFn'));
 
 module.exports = admin;
