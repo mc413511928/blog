@@ -12,9 +12,12 @@
         <div class="main">
             <!-- 分类标题 -->
             <div class="title">
-                <h4>{{@user && user._id}}</h4>
+                {{if user}}
+                <h4>{{@user._id}}</h4>
+                {{/if}}
                 <p class="tips">{{message}}</p>
             </div>
+            
             <!-- /分类标题 -->
             <form class="form-container" action="{{link}}" method="POST">
                 <div class="form-group">

@@ -41,7 +41,14 @@ app.use('/home', require('./route/home'));
 // 错误处理
 app.use((err, req, res, next) => {
     let obj = JSON.parse(err);
-    res.redirect(`${obj.path}?message=${obj.message}`);
+    let arr = [];
+    for(let attr in obj) {
+        if (attr != 'path') {
+            arr.push(attr + '=' + obj[attr]);
+        }
+    }
+    // arr => ['message=hello', 'id=88']
+    res.redirect(`${obj.path}?${arr.join('&')}`);
 });
 
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));

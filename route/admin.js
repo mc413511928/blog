@@ -14,5 +14,7 @@ admin.get('/logout', require('./admin/logoutFn'));
 admin.get('/user-edit', require('./admin/userEditPage'));
 // 新增用户的功能
 admin.post('/user-edit', require('./admin/userEditFn'));
+// 修改用户
+admin.post('/user-modify', require('./admin/userModifyFn'));
 
 module.exports = admin;
