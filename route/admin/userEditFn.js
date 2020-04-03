@@ -1,4 +1,3 @@
-const Joi = require('joi');
 const {
     User,
     userValidator
@@ -10,11 +9,10 @@ module.exports = async (req, res, next) => {
         await userValidator(req.body);
     } catch (err) {
         // return res.redirect(`/admin/user-edit?message=${err.message}`);
-        let obj = {
+        return next(JSON.stringify({
             path: '/admin/user-edit',
             message: err.message
-        };
-        return next(JSON.stringify(obj));
+        }));
     }
     // 查询邮箱在数据库是否存在
     const user = await User.findOne({
@@ -24,11 +22,10 @@ module.exports = async (req, res, next) => {
     if (user) {
         // 邮箱已经存在了不应该允许添加
         // return res.redirect(`/admin/user-edit?message=邮箱已经存在了`);
-        let obj = {
+        return next(JSON.stringify({
             path: '/admin/user-edit',
             message: '邮箱已经存在了'
-        };
-        return next(JSON.stringify(obj));
+        }));
     }
     // 对用户的密码进行加密
     req.body.password = hash(req.body.password);
