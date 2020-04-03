@@ -21,6 +21,7 @@ module.exports = async (req, res) => {
         userInfo: req.session.userInfo,
         users,
         page,
-        total
+        total,
+        count
     });
 };
