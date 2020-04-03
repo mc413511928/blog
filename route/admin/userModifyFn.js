@@ -24,7 +24,6 @@ module.exports = async (req, res, next) => {
             _id: id
         }, {
             username,
-            password,
             role,
             state,
             email
