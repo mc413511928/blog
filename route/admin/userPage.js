@@ -1,6 +1,9 @@
 const { User } = require('../../model/user');
 
 module.exports = async (req, res) => {
+    // console.log(req.app.locals.currentLink);
+    // 加一个标识，为了做高亮处理
+    req.app.locals.currentLink = 'user';
     // 当前页码
     let page = req.query.page || 1;
     // 每页显示多少条

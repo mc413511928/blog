@@ -19,6 +19,10 @@ admin.post('/user-modify', require('./admin/userModifyFn'));
 // 删除用户
 admin.get('/remove', require('./admin/userRemoveFn'));
 
+// 文章页面
+admin.get('/article', require('./admin/articlePage'));
+// 文章发布页面
+admin.get('/article-edit', require('./admin/articleEditPage'));
 
 
 module.exports = admin;

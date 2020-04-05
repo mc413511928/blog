@@ -1,5 +1,6 @@
 const { User } = require('../../model/user');
 module.exports = async (req, res, next) => {
+    req.app.locals.currentLink = 'user';
     const { message, id } = req.query;
     if (id) {
         // 修改操作
