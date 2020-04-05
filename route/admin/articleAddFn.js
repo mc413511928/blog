@@ -1,5 +1,10 @@
-const { IncomingForm } = require('formidable');
+const {
+    IncomingForm
+} = require('formidable');
 const path = require('path');
+const {
+    Article
+} = require('../../model/article');
 
 module.exports = (req, res) => {
     // Step1: 生成表单对象
@@ -9,9 +14,16 @@ module.exports = (req, res) => {
     // Step3: 保留上传文件的后缀
     form.keepExtensions = true;
     // Step4: 解析 req 对象
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {
         // fields: 普通数据
         // files:  上传的文件
-        res.send(files);
+        await Article.create({
+            title: fields.title,
+            author: fields.author,
+            publishDate: fields.publishDate,
+            cover: files.cover.path.split('public')[1],
+            content: fields.content
+        });
+        res.redirect('/admin/article');
     });
 };
