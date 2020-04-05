@@ -24,5 +24,8 @@ admin.get('/article', require('./admin/articlePage'));
 // 文章发布页面
 admin.get('/article-edit', require('./admin/articleEditPage'));
 
+// 文章添加功能
+admin.post('/article-add', require('./admin/articleAddFn'));
+
 
 module.exports = admin;
