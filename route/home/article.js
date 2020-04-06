@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
     }).populate('author');
     // res.send(article);
     res.render('home/article', {
-        article
+        article,
+        userInfo: req.session.userInfo
     });
 };
