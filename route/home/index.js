@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     // size: 一页显示多少条
     // display: 显示多少页
     // exec: 执行前面的查询操作
-    const articles = await pagination(Article).find().page(page).size(10).display(5).populate('author').exec();
+    const articles = await pagination(Article).find().page(page).size(2).display(5).populate('author').exec();
     // res.send(articles);
     res.render('home/default', {
         articles
