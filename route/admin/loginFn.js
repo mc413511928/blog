@@ -17,8 +17,13 @@ module.exports = async (req, res) => {
         if (user.password === hash(password)) {
             // 把用户信息存到 session 
             req.session.userInfo = user;
-            // 跳转到用户界面
-            res.redirect('/admin/user');
+            req.session.role = user.role;
+            if (user.role === 'normal') {
+                res.redirect('/home');
+            } else {
+                // 跳转到用户界面
+                res.redirect('/admin/user');
+            }
         } else {
             res.status(400).render('admin/error', {
                 msg: '密码错误'

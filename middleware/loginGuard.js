@@ -4,6 +4,10 @@ module.exports = (req, res, next) => {
     if (req.url !== '/login' && !req.session.userInfo) {
         res.redirect('/admin/login');
     } else {
+        // console.log(req.session.userInfo.role, 2333333);
+        if (req.session.role === 'normal') {
+            return res.redirect('/home');
+        }
         // 否则放行
         next();
     }
