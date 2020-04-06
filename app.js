@@ -6,6 +6,15 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const dateFormat = require('dateformat');
 const template = require('art-template');
+const morgan = require('morgan');
+
+if (process.env.NODE_ENV === 'development') {
+    // 做开发环境特有的操作
+    // 会自动在控制台打印请求日志
+    app.use(morgan('dev'));
+} else {
+    // 做生产环境对应的操作
+}
 
 // 连接数据库
 require('./model/connect');
