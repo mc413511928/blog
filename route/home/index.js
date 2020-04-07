@@ -10,6 +10,7 @@ module.exports = async (req, res) => {
     const articles = await pagination(Article).find().page(page).size(2).display(5).populate('author').exec();
     // res.send(articles);
     res.render('home/default', {
-        articles
+        articles,
+        userInfo: req.session.userInfo
     });
 };

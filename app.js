@@ -47,6 +47,11 @@ app.use(session({
 // 登录拦截
 app.use('/admin', require('./middleware/loginGuard'));
 
+app.get('/', (req, res) => {
+    // 当用户直接访问 / 的时候跳转到 /home
+    res.redirect('/home');
+});
+
 // 路由相关的操作
 app.use('/admin', require('./route/admin'));
 app.use('/home', require('./route/home'));
